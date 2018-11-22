@@ -1,0 +1,5 @@
+For the exercises in this chapter we need a list of English words.
+There are lots of word lists available on the Web,
+but the one most suitable for our purpose is one of the word lists
+collected and contributed to the public domain by Grady Ward as part of the Moby lexicon
+project
