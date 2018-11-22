@@ -52,3 +52,16 @@
 #     for j in range(cols):
 #         print("* ", end = "")
 #     print("")
+
+# name = "micke"
+# age = 21
+# string = f"My name is {name} and my age is {age}"
+# print(string)
+
+# res = 100 / 3
+# print(f"100 delat med tre är {res:.2}")
+# print(f"100 delat med tre är {res:.2f}")
+# print(f"100 delat med tre är {res:7.1f}")
+# print(f"100 delat med tre är {res:<7.1f}")
+# print(f"100 delat med tre är {res:>7.1f}")
+

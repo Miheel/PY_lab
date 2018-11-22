@@ -308,9 +308,7 @@
 #    else:
 #        break
 
-<<<<<<< HEAD
 #1.32
-=======
 #2.2
 #def count_e(word):
 #    count = 0
@@ -336,7 +334,7 @@
 #            j+=1
 
 #2.5
-#def get_char(string, pos):
+# def get_char(string, pos):
 #    let = "0"
 #    if pos <= len(string):
 #        for i in range(pos):
@@ -349,8 +347,8 @@
 
 
 #2.7
-#loop = True
-#while loop:
+# loop = True
+# while loop:
 #    word = input("Write a word")
 #    ln = len(word)
 #    letf = 1
@@ -360,7 +358,7 @@
 #        print(let1, "", let2)
 #        ln -= 1
 #        letf += 1
-#        if let1 == let2:
+#        if let1.lower() == let2.lower():
 #            pal = True
 #        else:
 #            pal = False
@@ -376,16 +374,18 @@
 #    print(sent)
 
 #2.9
-#def write_to_file(file_name, num):
-#    fout = open (file_name, "w")
-#    for i in range(1, num + 1):
-#        for j in range(1, 10):
-#            line = str(i) + "*" + str(j) + "\n" 
-#            fout.write(line)
+# def write_to_file(file_name, num):
+#     fout = open (file_name, "w")
+#     for i in range(1, num + 1):
+#         for j in range(1, 10):
+#             multi = i * j
+#             line = str(i) + " * " + str(j) +" = "+ str(multi) + "\n" 
+#             line2 = f"{i} * {j} = {multi}\n"
+#             fout.write(line2)
+#     fout.close()
 
-#write_to_file("a.txt", 9)
-#write_to_file("b.txt", 6)
+# write_to_file("a.txt", 9)
+# write_to_file("b.txt", 6)
 
 #2.10
 
->>>>>>> 78af50efd95c38159c1679de2c532afe0aa1a3d3
