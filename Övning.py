@@ -308,4 +308,80 @@
 #    else:
 #        break
 
-#1.32
+#2.2
+#def count_e(word):
+#    count = 0
+#    e = "e"
+#    for i in range(len(word)):
+#        if e == word[i]:
+#            count += 1
+#    return count
+
+#2.3
+#def count_char(string, char):
+#    count = 0
+#    for i in range(len(string)):
+#        if char == string[i]:
+#            count += 1
+#    return count
+
+#2.4
+#def substring(string, substr):
+#    count = 0
+#    for i in range(len(string)):
+#        if substr[j] == string[i]:
+#            j+=1
+
+#2.5
+#def get_char(string, pos):
+#    let = "0"
+#    if pos <= len(string):
+#        for i in range(pos):
+#            let = string[i]
+#    else:
+#        print("invalid position")
+#    return let
+
+#2.6
+
+
+#2.7
+#loop = True
+#while loop:
+#    word = input("Write a word")
+#    ln = len(word)
+#    letf = 1
+#    for i in range(len(word)):
+#        let1 = get_char(word, letf)
+#        let2 = get_char(word, ln)
+#        print(let1, "", let2)
+#        ln -= 1
+#        letf += 1
+#        if let1 == let2:
+#            pal = True
+#        else:
+#            pal = False
+#    if pal == True:
+#        print(word, "is a palindrome")
+#    else:
+#        print(word, "is not a palindrome")
+
+#2.8
+#fin = open("word.txt")
+#for line in fin:
+#    sent = line.strip()
+#    print(sent)
+
+#2.9
+#def write_to_file(file_name, num):
+#    fout = open (file_name, "w")
+#    for i in range(1, num + 1):
+#        for j in range(1, 10):
+#            line = str(i) + "*" + str(j) + "\n" 
+#            fout.write(line)
+
+#write_to_file("a.txt", 9)
+#write_to_file("b.txt", 6)
+
+#2.10
+
