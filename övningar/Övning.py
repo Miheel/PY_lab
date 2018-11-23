@@ -327,11 +327,17 @@
 #    return count
 
 #2.4
-#def substring(string, substr):
-#    count = 0
-#    for i in range(len(string)):
-#        if substr[j] == string[i]:
-#            j+=1
+def substring(string, substr):
+    found = True
+    if substr in string:
+        found = True
+    else:
+        found = False
+    return found
+string = input("put a string")
+string_to_find = input("string to find")
+f = substring(string, string_to_find)
+print(f)
 
 #2.5
 # def get_char(string, pos):
@@ -388,4 +394,7 @@
 # write_to_file("b.txt", 6)
 
 #2.10
+#def in_file(infile):
+#    fin = open("infile", "r")
 
+#def find_and_replace(find_str, replace_str, infile, outfile):
