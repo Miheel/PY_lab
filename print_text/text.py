@@ -1,7 +1,7 @@
 import time
 import sys
-def read_file(line_start, line_stop):
-    fin = open("text.txt", "r")
+def read_file(infile, line_start = "#0", line_stop = "#1"):
+    fin = open(infile, "r")
     lines = ""
     line = 0
     for line in fin:
@@ -16,10 +16,17 @@ def read_file(line_start, line_stop):
                     break
     return lines
 
-text = read_file("#0", "#1")
-#print(text)
-for char in text:
-    print(char, end = "")
-    sys.stdout.flush() 
-    time.sleep(0.1)
+def print_text(line_start, line_end):
+    text = read_file("text.txt", line_start, line_end)
+    for char in text:
+        print(char, end = "")
+        sys.stdout.flush() 
+        time.sleep(0.1)
+
+def print_menu_opt():
+    text = read_file("menu_opt.txt")
+    print(text)
+
+print_text("#0", "#1")
+print_menu_opt()
 
