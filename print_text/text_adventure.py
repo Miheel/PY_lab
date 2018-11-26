@@ -17,7 +17,7 @@ def read_file(infile, line_start = "#0", line_stop = "#1"):
     return lines
 
 def print_text(line_start, line_end):
-    text = read_file("text.txt", line_start, line_end)
+    text = read_file("story.txt", line_start, line_end)
     for char in text:
         print(char, end = "")
         sys.stdout.flush() 
