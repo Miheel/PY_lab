@@ -34,9 +34,12 @@ def main():
             if player_input == pc_choice: #Argument for a draw
                 print("it'a draw\npc: ", moves[int(pc_choice)-1])
                 print(name, ":", moves[int(player_input)-1], "\n")
-
-            elif player_input == "1" and pc_choice == "3" or player_input == "2" and pc_choice == "1" or player_input == "3" and pc_choice == "2": #Argument for a player wim
-                print("congrats you win\npc: ", moves[int(pc_choice)-1]) #takes value from list moves to write out move instead number
+            
+            #Argument for a player wim
+            elif player_input == "1" and pc_choice == "3" or player_input == "2" and pc_choice == "1" or player_input == "3" and pc_choice == "2":
+                
+                #takes value from list moves to write out move instead number
+                print("congrats you win\npc: ", moves[int(pc_choice)-1])
                 print(name, ":", moves[int(player_input)-1], "\n")
                 player_points += 1
 
