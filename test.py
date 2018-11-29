@@ -65,3 +65,35 @@
 # print(f"100 delat med tre är {res:<7.1f}")
 # print(f"100 delat med tre är {res:>7.1f}")
 
+#listor
+
+#list_ = []
+#list_in_list = [1, [1,2], 2, [3,4]]
+
+#ten_list = list(range(1,11))
+#lista på 10 element
+
+#for loop bra med listor
+# fruit_list = ["apple", "peach", "cherry"]
+# for fruit in fruit_list:
+#     print(fruit, "pie")
+#len() ger längd på lista
+
+#pets = ["cat", "dog"]
+#more_pets = ["spider", "parrot", "fox"]
+#all_pets = pets + more_pets #konkatination av listor
+#print(all_pets[1:3]) #från index 1 till och med index 2
+#.append lägger till element i listan
+#"cat" in all_pets #controlera om element finns i listan
+#all_pets.sort() #sorterar listan alfbetiskt
+#.reverse vänder på listan 
+#.pop(i) plockar ut element och returnerar elementet fån index i
+#.insert(i,x) lägger till element x på index i
+#.remove(x) tar bort första x ur lista
+
+#copy list
+#my_list = ["glasses", "phone"]
+#youre_list = my_list #skapar alias på samma lista
+#my_list.append("keys")
+#my_list[:] skapar copia av lista
+#youre_list = my_list[:]
