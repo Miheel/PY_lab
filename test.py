@@ -97,3 +97,36 @@
 #my_list.append("keys")
 #my_list[:] skapar copia av lista
 #youre_list = my_list[:]
+
+#______tupel dictionary_______
+#tupel
+#cant change tupel
+#tupel = ("item1", "item2", "item3")
+#med eller itan parenteser
+#tupel = (50,)
+#must be commas 
+#print("tupel[0]", tupel[0])
+#same vay as with lists
+#konkatination av tupler
+#tupel4 = (500,)
+#tupel4 = tupel4 + tupel2[2:7]
+# nykel ord "del"
+#del tupel
+#can iterate through tupel
+
+#dictionary
+#dicto = {"name": "micke", "age": "21"}
+#name is key age is value
+#dict[name]
+#ndex in dict is meaningless order does not exist
+#add value dict[nykel] = value
+#dicto["profession"] = "programmer"
+#look for value key in dict
+#"name" in dicto
+#look for value value in dict.values()
+#21 in dicto.values()
+#dict.keys() give the keys 
+#dict.value() give the values
+#dict.pop(key) return value and remove
+#del dict[key] remove key and value
+
