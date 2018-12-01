@@ -3,7 +3,7 @@
 """
 import random
 import os
-from collections import defaultdict
+#from collections import defaultdict
 def rand_i():
     """ randomizer"""
     rng = random.randint(0, 20)
@@ -44,7 +44,7 @@ def make_guese(letter, word):
     """
     Guess a letter in the word
     """
-    letter_in = input("\nmake a guese: ")
+    letter_in = input("\nType a letter to make a guese: ")
     k = 0
     for i in word:
         if letter_in in word:
@@ -92,7 +92,6 @@ def main():
         print("\nLetters not in the word: ", end="")
         for i in range(len(letter_dict["wrong_letter"])):
             print(letter_dict["wrong_letter"][i], end="")
-        cls()
 
         if 0 in letter_dict["taken_letter"]:
             play_loop = True
@@ -102,7 +101,8 @@ def main():
             cls()
             word_str = "".join(word)
             print("\nyou made it in ", tries, "tries")
-            print("The word was: ", word_str)
+            print("The word was:", word_str)
+            input("")
             play_loop = False
 
 

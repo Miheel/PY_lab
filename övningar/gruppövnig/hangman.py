@@ -57,7 +57,6 @@ def make_guese(taken, word):
         k += 1
     return taken
 
-
 def main():
     """main funktion"""
     #vars
