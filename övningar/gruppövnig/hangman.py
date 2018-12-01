@@ -7,36 +7,53 @@ def rand_i():
     rng = random.randint(0, 20)
     return rng
 
-def read_file(infile, range_r):
-    """Read file"""
-    fin = open(infile, "r")
+def read_file(infile, range_rng):
+    """
+    Reads specific line in file based on rand_i()
+    """
+    fin = open(infile, "r") #opens a file to read
     i = 0
     word = 0
-    for line in fin:
-        if i < range_r:
-            word = list(line.strip())
+
+    for line in fin: #Iterate over file
+        if i < range_rng:
+            word = list(line.strip()) #Read line number range_rng and convert to list
         i += 1
     return word
 
-def hidden_word(word, taken):
+def hidden_word(taken_letter, word):
+    """
+    Prints out underscores that hides the word
+    """
     k = 0
-    for i in word:
-        if taken[k] == 1:
-            print(word[k], end = "")
+    for i in word: #Iterate over list "word"
+
+        if taken_letter[k] == 1:
+            print(word[k], end="")
         else:
-            print("*", end = "")
+            print("_ ", end="")
         k += 1
 
 def make_guese(taken, word):
-    letter = input("make a guese: ")
+    """
+    Guess a letter in the word
+    """
+    letter = input("\nmake a guese: ")
     k = 0
     for i in word:
-        if letter == i:
-            if taken[k] == 1:
-                print("Guess alredy made: ")
-                break
-            elif taken[k] == 0:
-                taken[k] = 1
+        if letter in word:
+
+            if letter == i:
+                if taken[k] == 1:
+                    print("Guess alredy made: ")
+                    break
+
+                elif taken[k] == 0: #if letter exist in the word update taken[k]
+                    taken[k] = 1
+        else:
+            print("letter not in word")
+            break
+
         k += 1
     return taken
 
@@ -44,26 +61,32 @@ def make_guese(taken, word):
 def main():
     """main funktion"""
     #vars
-    taken = []
-    n = 0
+    taken_letter = []
+    taken_zero = 0
     tries = 0
-    rng = rand_i()
-    play_loop =True
-    word = read_file("word_list.txt", rng)
+    rand_int = rand_i()
+    play_loop = True
+    word = read_file("word_list.txt", rand_int)
     for i in word:
-        taken.append(n)
+        taken_letter.append(taken_zero)
     #
 
-    while play_loop == True:
-        #print(taken)  
+    print("Welcome to hangman")
+    hidden_word(taken_letter, word)
+
+    while play_loop is True:
+        #print(taken)
         #print(word)
-        make_guese(taken, word)
-        hidden_word(word, taken)
-        if 0 in taken:
+        taken_letter = make_guese(taken_letter, word)
+        hidden_word(taken_letter, word)
+        if 0 in taken_letter:
             play_loop = True
             tries += 1
+
         else:
-            print("you made it in ", tries, "tries")
+			word_str = "".join(word)
+            print("\nyou made it in ", tries, "tries")
+			print("The word was: ", word_str)
             play_loop = False
 
 
