@@ -1,0 +1,7 @@
+Antagande av tid på uppgiften Master_mind
+
+1. jag uppskattade att uppgiften skull ta ca 5h. då inräknat förståelse av de givna funktionerna.
+
+2. Efter uppgiften blev färdigstäld blev nedlagd tid på ca 3h
+
+3. 6^4 1296 olika combinationer
