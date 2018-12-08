@@ -4,6 +4,7 @@ Master mind game
 
 import random
 from master_mind_GUI import *
+from highscore import *
 
 def rand_list():
     """
@@ -44,31 +45,54 @@ def main():
     print(pc_rand_list)
     game_win = create_GUI()
     play_loop = True
+    
+    #NEW# 
+    highscore_list = {
+            "name": [],
+            "points": []
+            }
+    
+    read_file("highscore.txt", highscore_list)
+
+    name_out = input_GUI()
+    ####
 
     while play_loop is True:
+
         corr_place_int = 0
         wrong_plce_int = 0
 
         make_guess_list = make_guess(guess, game_win)
-        
+
         corr_place_int = correct(pc_rand_list, make_guess_list)
-        
+
         corr_wrong_place_int = corr_wrong(pc_rand_list, make_guess_list)
-        
+
         wrong_place_int = corr_wrong_place_int - corr_place_int
 
         peg_feedback(guess, corr_place_int, wrong_place_int, game_win)
 
         if corr_place_int == 4:
-            gameover_screen(guess, winn_loose[1])
+            gameover_screen(guess + 1, winn_loose[1])
+            
+            #NEW#
+            add_highscore(name_out, guess, highscore_list)
+            ####
+
             play_loop = False
+        
         elif guess == 6:
             gameover_screen(guess, winn_loose[0])
             play_loop = False
 
         guess += 1
         print(guess)
+    
+    #NEW#
+    highscore_GUI(highscore_list)
 
+    write_file("highscore.txt", highscore_list)
+    ####
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,7 @@
 from master_mind_GUI import *
 
+POINTS = [64, 32, 16, 8, 4, 2, 1]
+
 def read_file(infile, high_dict_list):
     """
     Read file and load names and points in to dict
@@ -74,52 +76,66 @@ def highscore_GUI(high_dict_list):
     banner_msg = Text(Point(5, 9), "Highscore!").draw(h_win)
     banner_msg.setTextColor("White")
     banner_msg.setSize(20)
+    
+    if name:
+        for i in range(0, len(name)):
+            h_name_msg = Text(Point(4.5, text_pos_y), name[i] + ":").draw(h_win)
+            h_points_msg = Text(Point(6, text_pos_y), points[i]).draw(h_win)
 
-    for i in range(5):
-        h_name_msg = Text(Point(4.5, text_pos_y), name[i] + ":").draw(h_win)
-        h_points_msg = Text(Point(6, text_pos_y), points[i]).draw(h_win)
+            h_name_msg.setTextColor("White")
+            h_name_msg.setSize(20)
 
-        h_name_msg.setTextColor("White")
-        h_name_msg.setSize(20)
+            h_points_msg.setTextColor("White")
+            h_points_msg.setSize(20)
 
-        h_points_msg.setTextColor("White")
-        h_points_msg.setSize(20)
-
-        text_pos_y -= 1
+            text_pos_y -= 1
 
     h_win.getMouse()
 
-def add_highscore(name_in, points_in, high_dict_list):
+def add_highscore(name_in, guesses, high_dict_list):
     """
     Adds highscore listing to highscore list
     """
 
     name_list = high_dict_list["name"]
     points_list = high_dict_list["points"]
-
+    
+    
     if name_in in name_list:
         for i in range(len(name_list)):
             if name_in == name_list[i]:
                 points_list[i] = int(points_list[i])
-                points_list[i] += points_in
+                points_list[i] += POINTS[guesses]
                 points_list[i] = str(points_list[i])
+            
     else:
         name_list.append(name_in)
-        points_list.append(str(points_in))
+        points_list.append(str(POINTS[guesses]))
 
 
 def input_GUI():
     """
     creats the name input window
     """
+    loop_ = True
 
-    win = GraphWin("input", 500, 500)         
-    win.setCoords(0, 0, 10, 10)               
-    name_in = Entry(Point(5, 5), 7).draw(win) 
-    
-    win.getMouse()
+    win = GraphWin("input", 500, 300)         
+    win.setCoords(0, 0, 10, 10)
 
-    name_out = name_in.getText()
-    print(name_out)
-    
-    return name_out
+    in_banner_msg = Text(Point(5, 7), "Type youre namefollowe by clicking the window").draw(win)
+    in_banner_msg.setSize(15)
+
+    while loop_ is True:
+        name_in = Entry(Point(5, 5), 7).draw(win)    
+        win.getMouse()
+
+        if name_in.getText():
+            loop_ = False
+
+        else:
+            empty_msg = Text(Point(5, 4), "Type youre name").draw(win)
+            empty_msg.setSize(20)
+            loop_ = True
+    win.close()
+
+    return name_in.getText()
