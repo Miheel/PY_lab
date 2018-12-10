@@ -7,3 +7,5 @@ Lab3/master_mind_highscore/master_mind_GUI.py
 Lab4/flood_fill/graphics.py
 övningar/övning/graphics/graphics.py
 *.pyc
+*.txt
+*.swp
