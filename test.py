@@ -130,3 +130,27 @@
 #dict.pop(key) return value and remove
 #del dict[key] remove key and value
 
+#controll if elem exist in list recursive
+# def cont_elem(elem, lst):
+#     if lst == []:
+#         return False
+#     if lst[0] == elem:
+#         return True
+#     return cont_elem(elem, lst[1:])
+
+# print(cont_elem(1, []))
+# print(cont_elem(1, [2, 3, 1]))
+# print(cont_elem(1, [2, 3, 4, 5, 6, 7]))
+
+#copy list
+# def lst_copy(lst):
+#     if len(lst) == 0:
+#         return []
+#     result = lst_copy(lst[1:])
+#     if type(lst[0]) != list:
+#         return [lst[0]] + result
+#     else:
+#         return [lst_copy(lst[0])] + result
+
+# print(lst_copy([1,[2,3],4,5]))
+

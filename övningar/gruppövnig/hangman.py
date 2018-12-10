@@ -83,9 +83,9 @@ def main():
             tries += 1
 
         else:
-			word_str = "".join(word)
+            word_str = "".join(word)
             print("\nyou made it in ", tries, "tries")
-			print("The word was: ", word_str)
+            print("The word was: ", word_str)
             play_loop = False
 
 

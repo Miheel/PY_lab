@@ -14,7 +14,7 @@ def rand_list():
         guess_list.append(random.randint(0, 5))
     return guess_list
 
-def correct(pc_combi, guess_combi):
+def correct_place(pc_combi, guess_combi):
     """
     calculate how many colors are in the correct place
     """
@@ -24,13 +24,13 @@ def correct(pc_combi, guess_combi):
             corr_place += 1
     return corr_place
 
-def corr_wrong(pc_combi, guess_combi):
+def col_wrong_place(pc_combi, guess_combi):
     """
     calculates how many colors are correct
     """
     corr_wrong_place = 0
     for i in range(4):
-        if guess_combi[i] in pc_combi:
+        if pc_combi[i] in guess_combi:
             corr_wrong_place += 1
     return corr_wrong_place
 
@@ -41,25 +41,24 @@ def main():
     guess = 0
     winn_loose = ["Looser", "Winner"]
     pc_rand_list = rand_list()
-    print(pc_rand_list)
-    game_win = create_GUI()
+    game_wind = create_GUI()
     play_loop = True
 
     while play_loop is True:
-        corr_place_int = 0
-        wrong_plce_int = 0
+        corr_place_num = 0
+        wrong_place_num = 0
 
-        make_guess_list = make_guess(guess, game_win)
+        player_guess_list = make_guess(guess, game_wind)
         
-        corr_place_int = correct(pc_rand_list, make_guess_list)
+        corr_place_num = correct_place(pc_rand_list, player_guess_list)
         
-        corr_wrong_place_int = corr_wrong(pc_rand_list, make_guess_list)
+        wrong_place_num = col_wrong_place(pc_rand_list, player_guess_list)
         
-        wrong_place_int = corr_wrong_place_int - corr_place_int
+        wrong_place_num = wrong_place_num - corr_place_num
 
-        peg_feedback(guess, corr_place_int, wrong_place_int, game_win)
+        peg_feedback(guess, corr_place_num, wrong_place_num, game_wind)
 
-        if corr_place_int == 4:
+        if corr_place_num == 4:
             gameover_screen(guess, winn_loose[1])
             play_loop = False
         elif guess == 6:
@@ -67,7 +66,6 @@ def main():
             play_loop = False
 
         guess += 1
-        print(guess)
 
 
 if __name__ == "__main__":
