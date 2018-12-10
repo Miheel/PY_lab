@@ -1,7 +1,9 @@
 import random
+
 def rand():
     rng = random.randint(0,100)
     return rng
+
 def sort(arr):
     for i in range(len(arr)):
         for j in range(len(arr)):
@@ -9,7 +11,19 @@ def sort(arr):
                 temp = arr[i]
                 arr[i] = arr[j]
                 arr[j] = temp
-    return arr
+
+def insert(seq):
+    for i in range(1, len(seq)):
+        temp = seq[i]
+        temp_pos = i
+
+        while temp_pos > 0 and seq[temp_pos-1] > temp:
+            seq[temp_pos] = seq[temp_pos - 1]
+            temp_pos -= 1
+
+        seq[temp_pos] = temp
+
+
 def read(infile):
     fin = open(infile, "r")
     temp = []
@@ -22,32 +36,16 @@ def write_f(outfile, arr):
     for i in arr:
         fout.write(str(i) + "\n")
 
-file_ = read("arr.txt")
-sort(file_)
-write_f("new_arr.txt", file_)
+file_1 = read("arr.txt")
+file_2 = read("arr.txt")
+sort(file_1)
+insert(file_2)
+write_f("new_arr_bub.txt", file_1)
+write_f("new_arr_ins.txt", file_2)
 
 print("sorted")
-for i in range(len(file_)):
-    print(file_[i])
-
-
-
-#test arr
-arr1 = []
-for i in range(0,50):
-    rng = rand()
-    arr1.append(rng)
-
-print("arr1")
-for i in range(len(arr1)):
-    print(arr1[i])
-write_f("arr1.txt", arr1)
-
-sort(arr1)
-
-print("arr sorted")
+for i in range(len(file_1)):
+    print(str(file_1[i]) + " ", end="")
 print("\n")
-for i in range(len(arr1)):
-    print(arr1[i])
-
-write_f("arr2.txt", arr1)
+for i in range(len(file_2)):
+    print(str(file_2[i]) + " ", end="")

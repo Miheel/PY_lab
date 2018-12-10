@@ -1,6 +1,9 @@
 "*" 
 Lab2/master_mind/graphics.py
 Lab2/master_mind/master_mind_GUI.py
-Lab2/master_mind/__pycache__/graphics.cpython-37.pyc
-Lab2/master_mind/__pycache__/highscore.cpython-37.pyc
-Lab2/master_mind/__pycache__/master_mind_GUI.cpython-37.pyc
+Lab3/sierpinskis_tiangel/graphics.py
+Lab3/master_mind_highscore/graphics.py
+Lab3/master_mind_highscore/master_mind_GUI.py
+Lab4/flood_fill/graphics.py
+övningar/övning/graphics/graphics.py
+*.pyc
