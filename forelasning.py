@@ -154,3 +154,57 @@
 
 # print(lst_copy([1,[2,3],4,5]))
 
+#högre ordningens funktion funktionell programering
+# def with_all(func, seq):
+#     if not seq:
+#         return []
+#     else:
+#         return [func(seq[0])] + with_all(func, seq[1:])
+# #def inc5(num):
+# #    return num + 5
+# def increment5(seq):
+#     return with_all(lambda n: n + 5, seq)
+
+# #def fist_elem(seq):
+# #    return seq[0]
+
+# def fist_element(seq):
+#     return with_all(lambda s: s[0] , seq)
+
+
+# lst1 = [1,2,3,4,5]
+# new_lst1 = increment5(lst1)
+# print(new_lst1)
+
+# lst2 = [[1,2,3,4], ["a","s","d","r","h"], [[1.3,33.2,5.2], [2,45,3,21]]]
+# new_lst2 = fist_element(lst2)
+# print(new_lst2)
+#lambda funktioner
+#funtioner av ett uttryck
+#lambda var: funkuttryck
+#=
+#def name(var):
+#   uttryck
+
+#currying - funktion som returnvärde
+
+# def mod_counter(steps):
+#     i = 0
+
+#     def next_step():
+#         nonlocal i 
+#         i = (i + 1) % steps
+#         return i
+    
+#     return next_step
+
+#iteratorer
+
+lst1 = list(map(lambda n: n+5, [1,2,3,4,5]))
+lst2 = list(range(10, 0, -2))
+lst3 = [53,6,24,5,75,4,32,5,6,34]
+print(list(enumerate(lst3)))
+s_lst = sorted(lst3)
+print(lst1)
+print(lst2)
+print(s_lst)
