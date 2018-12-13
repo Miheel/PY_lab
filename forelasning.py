@@ -200,11 +200,21 @@
 
 #iteratorer
 
-lst1 = list(map(lambda n: n+5, [1,2,3,4,5]))
-lst2 = list(range(10, 0, -2))
-lst3 = [53,6,24,5,75,4,32,5,6,34]
-print(list(enumerate(lst3)))
-s_lst = sorted(lst3)
-print(lst1)
-print(lst2)
-print(s_lst)
+# lst1 = list(map(lambda n: n+5, [1,2,3,4,5]))
+# lst2 = list(range(10, 0, -2))
+# lst3 = [53,6,24,5,75,4,32,5,6,34]
+# print(list(enumerate(lst3)))
+# s_lst = sorted(lst3)
+# print(lst1)
+# print(lst2)
+# print(s_lst)
+
+#list comprehension
+#[uttryck for i in seq]
+#length of list elem
+#[len(s) for s in ["alex", "martin", "fox"]]
+#kvadrerar alla från 0 till 10
+#[x**2 for x in range(0,10)]
+#nestlad for loop
+#[(x,y) for x in range(3) for y in range(4)]
+

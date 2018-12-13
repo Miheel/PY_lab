@@ -9,3 +9,5 @@ Lab4/flood_fill/graphics.py
 *.pyc
 *.txt
 *.swp
+*.un~
+*.py~

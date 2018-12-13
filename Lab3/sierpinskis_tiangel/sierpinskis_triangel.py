@@ -14,8 +14,7 @@ def sierpinski(win, size, start, color):
 
     #Takes the sin() values and calculates the height 
     sin_g = math.sin(math.pi / 3)
-    height = (size * sin_g * sin_g)/sin_g
-
+    height = size * sin_g
     #Adds the sidelength to starting points X value
     #Adds the height of tri to starting points Y value
     p3 = Point(start.getX() + size / 2, start.getY() + height)
