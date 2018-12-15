@@ -1,5 +1,5 @@
-Antagande av tid på uppgiften Master_mind
+Antagande av tid på uppgiften Master_mind_highscore + sierpinskis triangel
 
-1. jag uppskattade att uppgiften skull ta ca 5h. då inräknat förståelse av de givna funktionerna.
+1. jag uppskattade att uppgiften skull ta ca 5h.
 
 2. Efter uppgiften blev färdigstäld blev nedlagd tid på ca so far ca 7h-+

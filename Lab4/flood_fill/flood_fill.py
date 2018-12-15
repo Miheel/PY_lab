@@ -5,6 +5,7 @@ from graphics import *
 import random
 
 COLORS = ["cyan", "purple", "blue", "green", "yellow", "red"]
+WINDOW_HEIGHT, WINDOW_WIDTH = 500, 500
 
 def rand_grid(rect_lst):
     """
@@ -15,78 +16,94 @@ def rand_grid(rect_lst):
         color_grid_lst.append(random.randint(0,5))
     return color_grid_lst
 
-
-def create_grid(win):
+def create_grid(grid_size):
     """
     lad a list with rectangles 
     """
     rect_lst = []
-    win_h = win.getHeight() / 5
-    win_w = win.getWidth() / 5
-    start_p1 = Point(0.0, 0.0)
-    start_p2 = Point(start_p1.getX() + win_w , start_p1.getY() + win_h)
+
+    box_h = WINDOW_HEIGHT // grid_size
+    box_w = WINDOW_WIDTH // grid_size
     
-    rect_cols = 0
-    p1_Y = 0
-    p2_Y = win_h
-    
-    while rect_cols < 500:
-        p1_X = 0
-        p2_X = win_w
-        rect_rows = 0
-    
-        if rect_cols == 0:
-            p2_Y = start_p2.getY()
-        else:
-            p1_Y += start_p1.getY() + start_p2.getY()
-            p2_Y += start_p1.getY() + start_p2.getY()
-        i = 0
-        while rect_rows < 500:
-            #adds the length of the rect to startpoint1s x value
-            #to offset the next rect
-            p1_X += start_p2.getX() * i
-            p1_XY = Point(p1_X, p1_Y)
-            
-            #adds the length of the rect to startpoint2s y value
-            #to offset the next rect
-            p2_X += start_p2.getX() * i
-            p2_XY = Point(p2_X, p2_Y)
- 
-            i = 1
- 
-            rect = Rectangle(p1_XY, p2_XY)
-            rect_lst.append(rect) 
-            rect_rows += win_w
-        rect_cols += win_h
+    y = 0
+    for rect_cols in range(0, WINDOW_HEIGHT, box_h):
+        #walk through Window_WIDTH with box_w lenght
+        x = 0
+        if y < grid_size:
+            for rect_rows in range(0, WINDOW_WIDTH, box_w):
+                #rect_rows will offset the next rect in the x axis with box_w units
+                #rect_cols will offset the next row in the y axis with box_h units
+                box_p1 = Point(rect_rows, rect_cols)
+                box_p2 = Point(rect_rows + box_w, rect_cols + box_h)
+                if x < grid_size:
+                    rect = Rectangle(box_p1, box_p2)
+                    rect_lst.append(rect)
+                    x += 1
+            y += 1
+    print(box_h)
     return rect_lst
     
-
 def create_win():
     """
     makes the game window
     """
-    win = GraphWin("Flood-fill", 500, 500)
+    win = GraphWin("Flood-fill", WINDOW_WIDTH, WINDOW_HEIGHT)
 
     return win
+def find_color(lst, mouse_pos, size):
+    """
+    returns the color of the chosen rectangle
+    """
+    rect_num = find_rect(mouse_pos, size)
+
+    return lst[0][rect_num]
+    
+def find_rect(mouse_pos, size):
+    """
+    finds and return the correct rectangel the mouse clicked on
+    """
+    x_axis = mouse_pos.getX() // (WINDOW_WIDTH // size)
+    y_axis = mouse_pos.getY() // (WINDOW_HEIGHT // size)
+    
+    return int(y_axis * size + x_axis)
+
+def draw_board(win, lst):
+    """
+    Draws out the grid of color filled rectangles
+    """
+    for i in range(len(lst[0])):
+        color = COLORS[lst[0][i]]
+        lst[1][i].setFill(color)
+        lst[1][i].draw(win)      
+        #print(lst[1][i], "\n")
+
+def change_color(color, lst):
+    """
+    Changes color on element 0 in lst
+    """
+    lst[0][0] = color
+    [lst[1][i].undraw() for i in range(len(lst[1]))]
 
 def main():
     """
     main funk
     """
+    size_of_grid = 6
     win = create_win()
-    rect_lst = create_grid(win)
+    rect_lst = create_grid(size_of_grid)
     color_lst = rand_grid(rect_lst)
 
     rect_color_grid_lst = [color_lst, rect_lst]
+    print(len(rect_color_grid_lst[0]))
+    print(len(rect_color_grid_lst[0]))
+    draw_board(win, rect_color_grid_lst)
+    while True:
+        color_num = find_color(rect_color_grid_lst, win.getMouse(), size_of_grid)
+        print(color_num)
+        change_color(color_num, rect_color_grid_lst)
+        draw_board(win, rect_color_grid_lst)
+        print(rect_color_grid_lst[0])
 
-    for i in range(len(rect_lst)):
-        rect_color_grid_lst[1][i].draw(win)
-        color = COLORS[rect_color_grid_lst[0][i]]
-        rect_color_grid_lst[1][i].setFill(color)
-    
-    print(rect_color_grid_lst)
-
-    win.getMouse()
 
 
 if __name__ == "__main__":

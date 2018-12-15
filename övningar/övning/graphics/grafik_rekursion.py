@@ -2,7 +2,7 @@ from graphics import *
 
 def circle_rek(win, radie, centrum_point):
     circle = Circle(centrum_point, radie)
-    circle.setFill("red")
+    #circle.setFill("red")
     circle.draw(win)
     if radie >= 1: 
         cir_r = circle_rek(win, radie / 2, centrum_point = Point(centrum_point.getX() + radie, centrum_point.getY()))
