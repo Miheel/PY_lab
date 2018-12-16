@@ -122,7 +122,7 @@ def input_GUI():
     win = GraphWin("input", 500, 300)         
     win.setCoords(0, 0, 10, 10)
 
-    in_banner_msg = Text(Point(5, 7), "Type youre namefollowe by clicking the window").draw(win)
+    in_banner_msg = Text(Point(5, 7), "Type your name followed by clicking the window").draw(win)
     in_banner_msg.setSize(15)
 
     while loop_ is True:
