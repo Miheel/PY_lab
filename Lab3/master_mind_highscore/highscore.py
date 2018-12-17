@@ -6,8 +6,11 @@ def read_file(infile, high_dict_list):
     """
     Read file and load names and points in to dict
     """
-    
-    fin = open(infile, "r")
+    try:    
+        fin = open(infile, "r")
+    except:
+        fin = open(infile, "w+")
+
     for lines in fin:
         split(lines, high_dict_list)
     return high_dict_list
