@@ -1,7 +1,0 @@
-micke 12
-alex 35
-martin 9
-fox 74
-adam 23
-hugo 33
-malin 29

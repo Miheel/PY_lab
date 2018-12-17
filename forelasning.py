@@ -213,8 +213,16 @@
 #[uttryck for i in seq]
 #length of list elem
 #[len(s) for s in ["alex", "martin", "fox"]]
-#kvadrerar alla frÃ¥n 0 till 10
+#kvadrerar alla från 0 till 10
 #[x**2 for x in range(0,10)]
 #nestlad for loop
 #[(x,y) for x in range(3) for y in range(4)]
 
+
+#file exep
+try:
+    file = open("text.txt", "r")
+
+except:
+    file = open("test.txt", "w+") #w+ read and write
+    #if file dosnt exist create it
