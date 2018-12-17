@@ -91,33 +91,48 @@ def draw_board(win, lst):
             lst[1][y][x].draw(win)
             #print(lst[1][i], "\n")
 
-def change_color(lst, start_x, start_y, new_color):
+def change_color(lst, start_x, start_y, start_color, new_color):
     """
     Changes color of element in lst
     """
-    target = lst[0][start_x][start_y]
-    if target == new_color:
+    node_color = lst[0][start_x][start_y]
+    #if node is out of range return
+    if 0 > start_x > len(lst[0]) or 0 > start_y > len(lst[0]):
         return 0
-    else:
-        lst[0][start_x][start_y] = new_color
+    #if current node color is not equal to start color return
+    if node_color != start_color:
+        return 0
+    
+    lst[0][start_x][start_y] = new_color
+	
+    #if x less than the width of lst go forward one step
+    if start_x < len(lst[0][start_x])-1:
+        #East
+        change_color(lst, start_x + 1, start_y, start_color, new_color)
 
-    #    if start_y > 0:
-    #        change_color(lst, start_x, start_y - 1, new_color)
-        
-    #    if start_y < len(lst[0][start_y]) - 1:
-    #        change_color(lst, start_x, start_y + 1, new_color)
-        
-    #    if start_x > 0:
-    #        change_color(lst, start_x - 1, start_y, new_color)
-        
-    #    if start_x < len(lst[0])-1:
-    #        change_color(lst, start_x + 1, start_y, new_color)
+    #if x bigger than 0 go back one step
+    if start_x > 0:
+        #West
+        change_color(lst, start_x - 1, start_y, start_color, new_color)
+
+    #if y less than height of lst go up one step
+    if start_y < len(lst[0][start_y]) - 1:
+        #South
+        change_color(lst, start_x, start_y + 1, start_color, new_color)
+    
+    #if y bigger than 0 go up one step
+    if start_y > 0:
+        #North
+        change_color(lst, start_x, start_y - 1, start_color, new_color)
+
+
+
 
 def main():
     """
     main funk
     """
-    size_of_grid = 5
+    size_of_grid = 10
     int_x, int_y = 0, 0
     win = create_win()
     rect_lst = create_grid(size_of_grid)
@@ -131,7 +146,7 @@ def main():
         color_num = find_color(rect_color_grid_lst, win.getMouse(), size_of_grid)
         print(color_num)
 
-        change_color(rect_color_grid_lst, int_x, int_y, color_num)
+        change_color(rect_color_grid_lst, int_x, int_y, color_lst[0][0], color_num)
 
         [rect_color_grid_lst[1][y][x].undraw() for y in range(len(rect_color_grid_lst[1])) for x in range(len(rect_color_grid_lst[1]))]
         draw_board(win, rect_color_grid_lst)
