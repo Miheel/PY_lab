@@ -6,8 +6,9 @@ from graphics import *
 from highscore import *
 
 COLORS = ["cyan", "purple", "blue", "green", "yellow", "red"]
-WINDOW_HEIGHT, WINDOW_WIDTH = 500, 500
-BORD_size = [[6,6],[10,10],[15,15],[25,25]]
+WINDOW_HEIGHT, WINDOW_WIDTH = 600, 700
+BOARD_SIZE = 500
+GRID = [[6,6],[10,10],[15,15],[25,25]]
 GAME_STATE = ["Highscore", "Play", "Quit"]
 GAMEOVER = ["Winner", "Looser"]
 
@@ -18,18 +19,18 @@ def create_grid(grid_size):#1
     rect_lst = []
     color_lst = []
 	
-    box_h = WINDOW_HEIGHT // grid_size
-    box_w = WINDOW_WIDTH // grid_size
+    box_h = BOARD_SIZE // grid_size
+    box_w = BOARD_SIZE // grid_size
 
     cols = 0
-    for rect_cols in range(0, WINDOW_HEIGHT, box_h):
+    for rect_cols in range(0, BOARD_SIZE, box_h):
         #walk through Window_WIDTH with box_w lenght
         rows = 0
         rect_x = []
         color_lst_x = []
 		
         if cols < grid_size:
-            for rect_rows in range(0, WINDOW_WIDTH, box_w):
+            for rect_rows in range(0, BOARD_SIZE, box_w):
 
                 #rect_rows will offset the next rect in the x axis with box_w units
                 #rect_cols will offset the next row in the y axis with box_h units
@@ -61,8 +62,8 @@ def find_rect(mouse_pos, size):#3
     """
     finds and return the correct rectangel the mouse clicked on
     """
-    x_axis = mouse_pos.getX() // (WINDOW_WIDTH // size)
-    y_axis = mouse_pos.getY() // (WINDOW_HEIGHT // size)
+    x_axis = mouse_pos.getX() // (BOARD_SIZE // size)
+    y_axis = mouse_pos.getY() // (BOARD_SIZE // size)
 
     lst = [int(x_axis), int(y_axis)]
     print("point", lst)
@@ -169,7 +170,9 @@ def main():
     """
     main funk
     """
-    size_of_grid = 10
+    #input
+    size_of_grid = 4
+
     int_x, int_y = 0, 0
     state = 0
     game_loop = True
@@ -187,6 +190,7 @@ def main():
     #rect_color_grid_lst = [color_lst, rect_lst]
     
     print(rect_color_grid_lst[0])
+    print(rect_color_grid_lst[1])
     while game_loop == True:
         state = create_menu(win, state)
         win.setCoords(0,500,500,0)
@@ -200,8 +204,15 @@ def main():
             name_out = input_GUI()
             draw_board(win, rect_color_grid_lst)
             while True:
-                
-                color_num = find_color(rect_color_grid_lst, win.getMouse(), size_of_grid)
+                click = win.getMouse()
+                if click.x < 100 or click.y < 50:
+                    click.x += 100
+                    click.y += 50
+                if click.x > 600 or click.y > 550:
+                    click.x -= 100
+                    click.y -= 50
+
+                color_num = find_color(rect_color_grid_lst, click, size_of_grid)
                 print(color_num)
 
                 change_color(rect_color_grid_lst, int_x, int_y, rect_color_grid_lst[0][0][0], color_num)
