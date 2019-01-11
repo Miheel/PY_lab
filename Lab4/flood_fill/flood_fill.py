@@ -2,16 +2,14 @@
 Flood Fill game
 """
 import random
-from graphics import *
+from GUI import *
 from highscore import *
 
-COLORS = ["cyan", "purple", "blue", "green", "yellow", "red"]
-WINDOW_HEIGHT, WINDOW_WIDTH = 500, 500
-BORD_size = [[6,6],[10,10],[15,15],[25,25]]
+COLORS = ["cyan", "purple", "blue", "green", "yellow", "red", "BlanchedAlmond", "hot pink"]
 GAME_STATE = ["Highscore", "Play", "Quit"]
 GAMEOVER = ["Winner", "Looser"]
 
-def create_grid(grid_size):#1
+def create_grid(grid_size, num_of_color):#1
     """
     load a one 2d list with rectangles and one 2d list with random runbers to represent colors
     """
@@ -39,7 +37,7 @@ def create_grid(grid_size):#1
                 if rows < grid_size:
                     rect = Rectangle(box_p1, box_p2)
 					
-                    color_lst_x.append(random.randint(0, 5))
+                    color_lst_x.append(random.randint(0, num_of_color))
                     rect_x.append(rect)
                     rows += 1
 					
@@ -101,61 +99,7 @@ def change_color(lst, start_x, start_y, start_color, new_color):#4
         #North
         change_color(lst, start_x, start_y - 1, start_color, new_color)	
 
-def create_win():#5
-    """
-    makes the game window
-    """
-    win = GraphWin("Flood-fill", WINDOW_WIDTH, WINDOW_HEIGHT)
-
-    return win
-
-def create_menu(win, state):#6
-    #win = GraphWin("Flood_fill", WINDOW_WIDTH, WINDOW_HEIGHT)
-    win.setCoords(0.0, 0.0, 30.0, 30.0)
-    
-    highscore_box = Rectangle(Point(10, 20), Point(20, 23)).draw(win)
-    highscore_box.setFill("black")
-
-    highscore_text = Text(Point(15, 21.5), "Highscore").draw(win)
-    highscore_text.setFill("white")
-    highscore_text.setSize(20)
-
-    play_box = Rectangle(Point(10, 15), Point(20, 18)).draw(win)
-    play_box.setFill("black")
-
-    play_text = Text(Point(15, 16.5), "Play").draw(win)
-    play_text.setFill("white")
-    play_text.setSize(20)
-    
-    quit_box = Rectangle(Point(10, 10), Point(20, 13)).draw(win)
-    quit_box.setFill("black")
-
-    quit_text = Text(Point(15, 11.5), "Quit").draw(win)
-    quit_text.setFill("white")
-    quit_text.setSize(20)
-
-    click = win.getMouse()
-    print(click)
-    box_lst = [highscore_box, highscore_text, play_box, play_text, quit_box, quit_text]
-
-    #Highscore
-    if 10 <= click.x <= 20 and 20 <= click.y <= 23:
-        state = 0
-
-    #Play
-    if 10 <= click.x <= 20 and 15 <= click.y <= 18:
-        state = 1
-        #Hide menu
-    #Quit
-    if 10 <= click.x <= 20 and 10 <= click.y <= 13:
-        state = 2
-    
-    for i in range(len(box_lst)):
-        box_lst[i].undraw()
-
-    return state
-
-def draw_board(win, lst):#7
+def draw_board(win, lst):#5
     """
     Draws out the grid of color filled rectangles
     """
@@ -169,11 +113,12 @@ def main():
     """
     main funk
     """
-    size_of_grid = 10
+    size_of_grid = 0
     int_x, int_y = 0, 0
     state = 0
     game_loop = True
-    
+    menu_loop = True
+
     highscore_lst = {
             "name": [],
             "points": []
@@ -181,44 +126,54 @@ def main():
     read_file("highscore.txt", highscore_lst)
 
     win = create_win()
-    #rect_lst 
-    rect_color_grid_lst = create_grid(size_of_grid)
-    #color_lst = rand_grid(rect_lst)
-    #rect_color_grid_lst = [color_lst, rect_lst]
-    
-    print(rect_color_grid_lst[0])
-    while game_loop == True:
+
+    while menu_loop == True:
         state = create_menu(win, state)
-        win.setCoords(0,500,500,0)
-        
-        #Highscore
-        if state == 0:
-            highscore_GUI(highscore_lst)
 
-        #Play
         if state == 1:
-            name_out = input_GUI()
-            draw_board(win, rect_color_grid_lst)
-            while True:
-                
-                color_num = find_color(rect_color_grid_lst, win.getMouse(), size_of_grid)
-                print(color_num)
+            size_of_grid = choose_size(win, size_of_grid)
+            if size_of_grid == 6:
+                num_of_color = 4
+            if size_of_grid == 10:
+                num_of_color = 5
+            if size_of_grid == 15:
+                num_of_color = 6
+            if size_of_grid == 25:
+                num_of_color = 7
+            #rect_lst 
+            rect_color_grid_lst = create_grid(size_of_grid, num_of_color)   
+	
+        while game_loop == True:
+            win.setCoords(0,500,500,0)
+			
+            #Highscore
+            if state == 0:
+                highscore_GUI(highscore_lst)
 
-                change_color(rect_color_grid_lst, int_x, int_y, rect_color_grid_lst[0][0][0], color_num)
-
-                [rect_color_grid_lst[1][y][x].undraw() for y in range(len(rect_color_grid_lst[1])) for x in range(len(rect_color_grid_lst[1]))]
+            #Play
+            if state == 1:
+                name_out = input_GUI()
                 draw_board(win, rect_color_grid_lst)
+                while True:
+                
+                    color_num = find_color(rect_color_grid_lst, win.getMouse(), size_of_grid)
+                    print(color_num)
 
-                #if bord complete with moves<max_moves
-                    #add_highscore()
-                    #gameover_screen Winner
-                #else
-                    #gameover_screen looser
+                    change_color(rect_color_grid_lst, int_x, int_y, rect_color_grid_lst[0][0][0], color_num)
 
-        #Quit
-        if state == 2:
-            game_loop = False
-            write_file("highscore.txt", highscore_lst)
+                    [rect_color_grid_lst[1][y][x].undraw() for y in range(len(rect_color_grid_lst[1])) for x in range(len(rect_color_grid_lst[1]))]
+                    draw_board(win, rect_color_grid_lst)
+
+                    #if bord complete with moves<max_moves
+                        #add_highscore()
+                        #gameover_screen Winner
+                    #else
+                        #gameover_screen looser
+
+            #Quit
+            if state == 2:
+                game_loop = False
+                write_file("highscore.txt", highscore_lst)
             
     win.close()
 
