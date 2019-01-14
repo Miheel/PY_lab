@@ -7,7 +7,6 @@ import GUI
 import highscore as high
 
 COLORS = ["cyan", "purple", "blue", "green", "yellow", "red", "BlanchedAlmond", "hot pink"]
-GAMEOVER = ["Winner", "Looser"]
 
 def create_grid(grid_size, num_of_color):#1
     """
@@ -112,32 +111,41 @@ def draw_board(win, lst):#5
             lst[1][y][x].setFill(color)
             lst[1][y][x].draw(win)
 
+def undraw_board(lst):#6
+    """
+    Hides the board
+    """
+    [lst[1][y][x].undraw()
+     for y in range(len(lst[1]))
+     for x in range(len(lst[1]))]
+
 def main():
     """
     main funk
     """
-    size_of_grid = 0
-    int_x, int_y = 0, 0
-    state, max_moves, moves = 0, 0, 0
-    game_loop, menu_loop = True, True
-
-    highscore_lst = {
-        "name": [],
-        "points": []
-        }
-    high.read_file("highscore.txt", highscore_lst)
-
+    menu_loop = True
+    state = 0
     win = GUI.create_win()
 
     while menu_loop:
+        size_of_grid = 0
+        int_x, int_y = 0, 0
+        max_moves, moves = 0, 0
+        game_loop = True
+
+        highscore_lst = {
+            "name": [],
+            "points": []
+            }
+        high.read_file("highscore.txt", highscore_lst)
         state = GUI.create_menu(win, state)
 
         #Highscore
-        if state == 0:
+        if state == GUI.STATE[0]:
             high.highscore_GUI(highscore_lst)
 
         #Play
-        if state == 1:
+        if state == GUI.STATE[1]:
             size_of_grid = GUI.choose_size(win, size_of_grid)
             if size_of_grid == 6:
                 num_of_color = 4
@@ -166,28 +174,30 @@ def main():
                 change_color(rect_color_grid_lst, int_x, int_y,
                              rect_color_grid_lst[0][0][0], color_num)
 
-                lst = [rect_color_grid_lst[1][y][x].undraw()
-                       for y in range(len(rect_color_grid_lst[1]))
-                       for x in range(len(rect_color_grid_lst[1]))]
+                undraw_board(rect_color_grid_lst)
 
                 draw_board(win, rect_color_grid_lst)
-                
+
                 #check if the bord is complete
                 #return true if all element i lst are the same
                 all_same = all(color_num == rect_color_grid_lst[0][x][y]
                                for x in range(len(rect_color_grid_lst[0]))
                                for y in range(len(rect_color_grid_lst[0])))
 
-                if all_same == True and moves < max_moves:
-                    high.add_highscore(name_out, moves, highscore_lst)
-                    high.write_file("highscore.txt", highscore_lst)
-                #    gameover_screen Winner
-                #else
-                #    gameover_screen looser
+                if all_same:
+                    if moves < max_moves:
+                        high.add_highscore(name_out, moves, highscore_lst)
+                        high.write_file("highscore.txt", highscore_lst)
+                        GUI.gameover_screen(0)
+                        game_loop = False
+                    elif moves > max_moves:
+                        GUI.gameover_screen(1)
+                        game_loop = False
                 moves += 1
+            undraw_board(rect_color_grid_lst)
 
         #Quit
-        if state == 2:
+        if state == GUI.STATE[2]:
             menu_loop = False
             high.write_file("highscore.txt", highscore_lst)
 

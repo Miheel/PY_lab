@@ -5,22 +5,21 @@ import graphics as graph
 
 WINDOW_HEIGHT, WINDOW_WIDTH = 500, 500
 BORD_SIZE = [6, 10, 15, 25]
+STATE = ["highscore", "play", "quit"]
+REPLAY = ["Yes", "No"]
 
-def create_win():#6
+def create_win():#7
     """
     Makes the game window
     """
     win = graph.GraphWin("Flood-fill", WINDOW_WIDTH, WINDOW_HEIGHT)
-
     return win
 
-def create_menu(win, state):#7
+def create_menu(win, state):#8
     """
     Menu buttons
     """
-    #win = GraphWin("Flood_fill", WINDOW_WIDTH, WINDOW_HEIGHT)
     win.setCoords(0.0, 0.0, 30.0, 30.0)
-
     highscore_box = graph.Rectangle(graph.Point(10, 20), graph.Point(20, 23)).draw(win)
     highscore_box.setFill("black")
 
@@ -48,22 +47,22 @@ def create_menu(win, state):#7
 
     #Highscore
     if 10 <= click.x <= 20 and 20 <= click.y <= 23:
-        state = 0
+        state = STATE[0]
 
     #Play
     if 10 <= click.x <= 20 and 15 <= click.y <= 18:
         undraw_box(box_lst)
-        state = 1
+        state = STATE[1]
         #Hide menu
     #Quit
     if 10 <= click.x <= 20 and 10 <= click.y <= 13:
-        state = 2
+        state = STATE[2]
 
     undraw_box(box_lst)
 
     return state
 
-def choose_size(win, size):#8
+def choose_size(win, size):#9
     """
     Bord size menu buttons
     """
@@ -118,7 +117,24 @@ def choose_size(win, size):#8
 
     return size
 
-def undraw_box(box_lst):#9
+def gameover_screen(win_loose):#10
+    """
+    gameover screen
+    """
+    g_win = graph.GraphWin("Gameover", WINDOW_WIDTH, WINDOW_HEIGHT)
+    g_win.setCoords(0.0, 0.0, 30.0, 30.0)
+
+    if win_loose == 0:
+        msg_banner_1 = graph.Text(graph.Point(15, 25), "You made it in or under the max move count").draw(g_win)
+        msg_banner_1.setSize(15)
+    elif win_loose == 1:
+        msg_banner_2 = graph.Text(graph.Point(15, 25), "You failed").draw(g_win)
+        msg_banner_2.setSize(25)
+
+    g_win.getMouse()
+    g_win.close()
+
+def undraw_box(box_lst):#11
     """
     Undraws the menu boxes
     """
