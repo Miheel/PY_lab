@@ -7,6 +7,7 @@ import GUI
 import highscore as high
 
 COLORS = ["cyan", "purple", "blue", "green", "yellow", "red", "BlanchedAlmond", "hot pink"]
+MAX_MOVES = [10, 17, 25, 42]
 
 def create_grid(grid_size, num_of_color):#1
     """
@@ -65,11 +66,12 @@ def find_rect(mouse_pos, size):#3
     print("point", lst)
     return lst
 
-def change_color(lst, start_x, start_y, start_color, new_color):#4
+def change_color(win, lst, start_x, start_y, start_color, new_color):#4
     """
-    Changes color of element in lst
+    Changes color of element in lst "Flood_Fill algorithm"
     """
     node_color = lst[0][start_x][start_y]
+
     #if node is out of range return
     if 0 > start_x > len(lst[0]) or 0 > start_y > len(lst[0]):
         return 0
@@ -81,25 +83,33 @@ def change_color(lst, start_x, start_y, start_color, new_color):#4
         return 0
 
     lst[0][start_x][start_y] = new_color
-    #if x less than the width of lst go forward one step
+	
+    rect_lst = lst[1][start_x][start_y]
+    rect_lst.undraw()
+    color = COLORS[new_color]
+    rect_lst.setFill(color)
+
+    rect_lst.draw(win)	
+
+	#if x less than the width of lst go forward one step
     if start_x < len(lst[0][start_x])-1:
         #East
-        change_color(lst, start_x + 1, start_y, start_color, new_color)
+        change_color(win, lst, start_x + 1, start_y, start_color, new_color)
+
+    #if y less than height of lst go down one step
+    if start_y < len(lst[0][start_y]) - 1:
+        #South
+        change_color(win, lst, start_x, start_y + 1, start_color, new_color)
 
     #if x bigger than 0 go back one step
     if start_x > 0:
         #West
-        change_color(lst, start_x - 1, start_y, start_color, new_color)
-
-    #if y less than height of lst go up one step
-    if start_y < len(lst[0][start_y]) - 1:
-        #South
-        change_color(lst, start_x, start_y + 1, start_color, new_color)
+        change_color(win, lst, start_x - 1, start_y, start_color, new_color)
 
     #if y bigger than 0 go up one step
     if start_y > 0:
         #North
-        change_color(lst, start_x, start_y - 1, start_color, new_color)
+        change_color(win, lst, start_x, start_y - 1, start_color, new_color)
 
 def draw_board(win, lst):#5
     """
@@ -147,18 +157,18 @@ def main():
         #Play
         if state == GUI.STATE[1]:
             size_of_grid = GUI.choose_size(win, size_of_grid)
-            if size_of_grid == 6:
+            if size_of_grid == GUI.BOARD_SIZE[0] :
                 num_of_color = 4
-                max_moves = 20
-            if size_of_grid == 10:
+                max_moves = MAX_MOVES[0]
+            if size_of_grid == GUI.BOARD_SIZE[1]:
                 num_of_color = 5
-                max_moves = 17
-            if size_of_grid == 15:
+                max_moves = MAX_MOVES[1]
+            if size_of_grid == GUI.BOARD_SIZE[2]:
                 num_of_color = 6
-                max_moves = 29
-            if size_of_grid == 25:
+                max_moves = MAX_MOVES[2]
+            if size_of_grid == GUI.BOARD_SIZE[3]:
                 num_of_color = 7
-                max_moves = 60
+                max_moves = MAX_MOVES[3]
 
             #rect_lst
             rect_color_grid_lst = create_grid(size_of_grid, num_of_color)
@@ -171,14 +181,13 @@ def main():
                 color_num = find_color(rect_color_grid_lst, win.getMouse(), size_of_grid)
                 print(color_num)
 
-                change_color(rect_color_grid_lst, int_x, int_y,
+                if color_num != rect_color_grid_lst[0][0][0]:
+                    moves += 1
+
+                change_color(win, rect_color_grid_lst, int_x, int_y,
                              rect_color_grid_lst[0][0][0], color_num)
 
-                undraw_board(rect_color_grid_lst)
-
-                draw_board(win, rect_color_grid_lst)
-
-                #check if the bord is complete
+                #check if the board is complete
                 #return true if all element i lst are the same
                 all_same = all(color_num == rect_color_grid_lst[0][x][y]
                                for x in range(len(rect_color_grid_lst[0]))
@@ -188,12 +197,12 @@ def main():
                     if moves < max_moves:
                         high.add_highscore(name_out, moves, highscore_lst)
                         high.write_file("highscore.txt", highscore_lst)
-                        GUI.gameover_screen(0)
+                        GUI.gameover_screen(0, moves)
                         game_loop = False
                     elif moves > max_moves:
-                        GUI.gameover_screen(1)
+                        GUI.gameover_screen(1, moves)
                         game_loop = False
-                moves += 1
+
             undraw_board(rect_color_grid_lst)
 
         #Quit

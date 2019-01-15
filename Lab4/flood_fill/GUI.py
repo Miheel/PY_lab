@@ -4,9 +4,8 @@ Creates the GUI elements like the menu
 import graphics as graph
 
 WINDOW_HEIGHT, WINDOW_WIDTH = 500, 500
-BORD_SIZE = [6, 10, 15, 25]
+BOARD_SIZE = [6, 10, 15, 25]
 STATE = ["highscore", "play", "quit"]
-REPLAY = ["Yes", "No"]
 
 def create_win():#7
     """
@@ -41,22 +40,25 @@ def create_menu(win, state):#8
     quit_text.setFill("white")
     quit_text.setSize(20)
 
-    click = win.getMouse()
-    print(click)
     box_lst = [highscore_box, highscore_text, play_box, play_text, quit_box, quit_text]
+    menu_loop = True
+    while menu_loop:
+        click = win.getMouse()
+        #Highscore
+        if 10 <= click.x <= 20 and 20 <= click.y <= 23:
+            state = STATE[0]
+            menu_loop = False
 
-    #Highscore
-    if 10 <= click.x <= 20 and 20 <= click.y <= 23:
-        state = STATE[0]
-
-    #Play
-    if 10 <= click.x <= 20 and 15 <= click.y <= 18:
-        undraw_box(box_lst)
-        state = STATE[1]
-        #Hide menu
-    #Quit
-    if 10 <= click.x <= 20 and 10 <= click.y <= 13:
-        state = STATE[2]
+        #Play
+        if 10 <= click.x <= 20 and 15 <= click.y <= 18:
+            undraw_box(box_lst)
+            state = STATE[1]
+            menu_loop = False
+            #Hide menu
+        #Quit
+        if 10 <= click.x <= 20 and 10 <= click.y <= 13:
+            state = STATE[2]
+            menu_loop = False
 
     undraw_box(box_lst)
 
@@ -64,60 +66,70 @@ def create_menu(win, state):#8
 
 def choose_size(win, size):#9
     """
-    Bord size menu buttons
+    BOARD size menu buttons
     """
     win.setCoords(0.0, 0.0, 30.0, 30.0)
-    size_box_1 = graph.Rectangle(graph.Point(10, 20), graph.Point(20, 23)).draw(win)
+	
+    size_banner = graph.Text(graph.Point(15, 25), "choose a board size").draw(win)
+    size_banner.setSize(15)
+
+    size_box_1 = graph.Rectangle(graph.Point(9, 20), graph.Point(21, 23)).draw(win)
     size_box_1.setFill("black")
 
-    size_text_1 = graph.Text(graph.Point(15, 21.5), "6,6").draw(win)
+    size_text_1 = graph.Text(graph.Point(15, 21.5), "6,6 10 moves").draw(win)
     size_text_1.setFill("white")
     size_text_1.setSize(20)
 
-    size_box_2 = graph.Rectangle(graph.Point(10, 16), graph.Point(20, 19)).draw(win)
+    size_box_2 = graph.Rectangle(graph.Point(9, 16), graph.Point(21, 19)).draw(win)
     size_box_2.setFill("black")
 
-    size_text_2 = graph.Text(graph.Point(15, 17.5), "10,10").draw(win)
+    size_text_2 = graph.Text(graph.Point(15, 17.5), "10,10 17 moves").draw(win)
     size_text_2.setFill("white")
     size_text_2.setSize(20)
 
-    size_box_3 = graph.Rectangle(graph.Point(10, 12), graph.Point(20, 15)).draw(win)
+    size_box_3 = graph.Rectangle(graph.Point(9, 12), graph.Point(21, 15)).draw(win)
     size_box_3.setFill("black")
 
-    size_text_3 = graph.Text(graph.Point(15, 13.5), "15,15").draw(win)
+    size_text_3 = graph.Text(graph.Point(15, 13.5), "15,15 25 moves").draw(win)
     size_text_3.setFill("white")
     size_text_3.setSize(20)
 
-    size_box_4 = graph.Rectangle(graph.Point(10, 8), graph.Point(20, 11)).draw(win)
+    size_box_4 = graph.Rectangle(graph.Point(9, 8), graph.Point(21, 11)).draw(win)
     size_box_4.setFill("black")
 
-    size_text_4 = graph.Text(graph.Point(15, 9.5), "25,25").draw(win)
+    size_text_4 = graph.Text(graph.Point(15, 9.5), "25,25 42 moves").draw(win)
     size_text_4.setFill("white")
     size_text_4.setSize(20)
 
-    click = win.getMouse()
-    box_lst = [size_box_1, size_text_1,
+    box_lst = [size_banner, size_box_1, size_text_1,
                size_box_2, size_text_2,
                size_box_3, size_text_3,
                size_box_4, size_text_4]
 
-    if 10 <= click.x <= 20 and 20 <= click.y <= 23:
-        size = BORD_SIZE[0]
+    menu_loop = True
+    while menu_loop:
+        click = win.getMouse()
+        if 10 <= click.x <= 20 and 20 <= click.y <= 23:
+            size = BOARD_SIZE[0]
+            menu_loop = False
 
-    if 10 <= click.x <= 20 and 16 <= click.y <= 19:
-        size = BORD_SIZE[1]
+        if 10 <= click.x <= 20 and 16 <= click.y <= 19:
+            size = BOARD_SIZE[1]
+            menu_loop = False
 
-    if 10 <= click.x <= 20 and 12 <= click.y <= 15:
-        size = BORD_SIZE[2]
+        if 10 <= click.x <= 20 and 12 <= click.y <= 15:
+            size = BOARD_SIZE[2]
+            menu_loop = False
 
-    if 10 <= click.x <= 20 and 8 <= click.y <= 11:
-        size = BORD_SIZE[3]
+        if 10 <= click.x <= 20 and 8 <= click.y <= 11:
+            size = BOARD_SIZE[3]
+            menu_loop = False
 
     undraw_box(box_lst)
 
     return size
 
-def gameover_screen(win_loose):#10
+def gameover_screen(win_loose, moves):#10
     """
     gameover screen
     """
@@ -128,9 +140,10 @@ def gameover_screen(win_loose):#10
         msg_banner_1 = graph.Text(graph.Point(15, 25), "You made it in or under the max move count").draw(g_win)
         msg_banner_1.setSize(15)
     elif win_loose == 1:
-        msg_banner_2 = graph.Text(graph.Point(15, 25), "You failed").draw(g_win)
+        msg_banner_2 = graph.Text(graph.Point(15, 25), "You made to many moves").draw(g_win)
         msg_banner_2.setSize(25)
-
+    moves_banner = graph.Text(graph.Point(15, 15), moves).draw(g_win)
+    moves_banner.setSize(20)
     g_win.getMouse()
     g_win.close()
 
