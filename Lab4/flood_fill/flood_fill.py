@@ -152,7 +152,7 @@ def main():
 
         #Highscore
         if state == GUI.STATE[0]:
-            high.highscore_GUI(highscore_lst)
+            h_win = high.highscore_GUI(highscore_lst)
 
         #Play
         if state == GUI.STATE[1]:
@@ -193,13 +193,13 @@ def main():
                                for x in range(len(rect_color_grid_lst[0]))
                                for y in range(len(rect_color_grid_lst[0])))
 
-                if all_same:
-                    if moves < max_moves:
+                if all_same == True:
+                    if moves <= max_moves:
                         high.add_highscore(name_out, moves, highscore_lst)
                         high.write_file("highscore.txt", highscore_lst)
                         GUI.gameover_screen(0, moves)
                         game_loop = False
-                    elif moves > max_moves:
+                    elif moves >= max_moves:
                         GUI.gameover_screen(1, moves)
                         game_loop = False
 
